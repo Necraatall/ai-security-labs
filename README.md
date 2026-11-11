@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**Status: v1.0.0 final-release preparation. PR #9 was merged (commit `e80f5cbbc884ee8aa644344ec6f3b52126a92125`); the v1.0.0 GitHub Release and independent acceptance are pending. Public MIT-licensed synthetic security lab, not a production security certification.**
+**Status: v1.0.0 RELEASED. Public MIT-licensed synthetic AI security lab. Security limitations are documented; this is not a production security certification.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Owner-supplied FinanceBot scenario concepts were independently reconstructed as synthetic tests without importing the course target or source history.
 
@@ -183,3 +183,12 @@ The project demonstrates bounded security experiments; passing offline tests, sc
 ## Release acceptance — v1.0.0
 
 The published release is accepted only after a distinct reviewer or maintainer records a disposition for the documented limitations in `docs/SECURITY_REVIEW.md`, confirms the included files are authorized for publication, and the exact final commit passes CI. The final source ZIP and detached manifest must be built from **that commit**, verified, hashed and attached to a GitHub Release. A green synthetic oracle is not a model-safety certification; Trivy `vuln,misconfig` reported no eligible inputs rather than a clean result. See [TODO](TODO.md) for the remaining release-only gates.
+
+
+## Stable release
+
+[AI Security Labs v1.0.0](https://github.com/Necraatall/ai-security-labs/releases/tag/v1.0.0)
+
+The public Git tag is the release reference. Additional unsigned source
+ZIP/manifest assets were discontinued after publication and verification.
+See [release decisions](docs/RELEASE_DECISIONS.md).
