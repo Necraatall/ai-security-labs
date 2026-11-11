@@ -38,12 +38,21 @@ class OllamaClient:
             raise ValueError("Timeout or response size limit invalid")
 
     def chat(self, system: str, user: str) -> str:
+        return self.chat_history([
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ])
+
+    def chat_history(self, messages: list[dict[str, str]]) -> str:
+        """Send a complete isolated conversation, never server-global history."""
+        if not messages or messages[0].get("role") != "system" or any(
+            m.get("role") not in {"system", "user", "assistant"}
+            or not isinstance(m.get("content"), str) for m in messages
+        ):
+            raise ValueError("Invalid chat history")
         payload = json.dumps({
             "model": self.model,
-            "messages": [
-                {"role": "system", "content": system},
-                {"role": "user", "content": user},
-            ],
+            "messages": messages,
             "stream": False,
             "options": {"temperature": 0, "num_predict": 256},
         }).encode("utf-8")
