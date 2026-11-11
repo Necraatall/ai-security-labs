@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**Status: v1.0.0 final-release preparation. PR #9 was merged (commit `e80f5cbbc884ee8aa644344ec6f3b52126a92125`); the v1.0.0 GitHub Release and independent acceptance are pending. Public MIT-licensed synthetic security lab, not a production security certification.**
+**Status: v1.0.0 RELEASED. Public MIT-licensed synthetic AI security lab. Security limitations are documented; this is not a production security certification.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Owner-supplied FinanceBot scenario concepts were independently reconstructed as synthetic tests without importing the course target or source history.
 

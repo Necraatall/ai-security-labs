@@ -31,7 +31,7 @@
 3. Run all CI gates on the final commit after documentation changes and merge only on PASS.
 4. Build deterministic source ZIP from the final accepted commit, verify, record SHA-256, attach to GitHub Release and check uploaded bytes.
 
-**Verdict:** REVIEW_COMPLETED_WITH_LIMITATIONS / INDEPENDENT_ACCEPTANCE_PENDING. **Final release: NO-GO until acceptance.**
+**Verdict:** REVIEW_COMPLETED_WITH_LIMITATIONS / INDEPENDENT_ACCEPTANCE_PENDING. **Historical RC1 verdict only. v1.0.0 was subsequently published; see `docs/RELEASE_DECISIONS.md` for SR-03/SR-04 dispositions. Independent audit remains unverified.**
 
 
 ## v1.0.0 release update — 2026-11-11
