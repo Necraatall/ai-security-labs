@@ -78,3 +78,10 @@ Adds a narrow, measurable benign lookup quality oracle and synthetic hand-labell
 - Both agent system prompts explicitly include the benign readback JSON schema expected by the evaluator.
 - Oracle now recognizes complete reversed canary strings; 13 labelled synthetic fixtures expected to have TP=9, TN=4, FP=0, FN=0.
 - A green oracle fixture check is evidence for those fixtures only. Real model benign correctness and attack results need rerun.
+
+
+## v0.10 (prepared, not yet CI-verified)
+
+Adds independent DevSecOps CI job, package metadata/build contract,
+release archive validator, and negative regression tests. External Ruff,
+Bandit, pip-audit and PEP 517 build are NOT_RUN in this offline patch environment.

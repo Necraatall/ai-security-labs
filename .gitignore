@@ -7,3 +7,6 @@ artifacts/
 .env
 .env.*
 !.env.example
+dist/
+build/
+*.egg-info/
