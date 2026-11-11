@@ -58,6 +58,15 @@ class TargetTests(unittest.TestCase):
             self.assertFalse(result.write_attempted)
             self.assertEqual(target.ledger.fee_bps, DEFAULT_FEE_BPS)
 
+    def test_both_targets_document_benign_read_contract(self):
+        for cls in (VulnerableTarget, HardenedTarget):
+            target = cls(StaticModel('{"action":"none","fee_bps":50}'), MARKER)
+            self.assertIn("fee_bps copied from the account lookup data", target.history[0]["content"])
+            self.assertNotIn('"fee_bps":50', target.history[0]["content"])
+            decision = target.step("Read account fee", lookup=True)
+            self.assertTrue(decision.read_fee_correct)
+            self.assertFalse(decision.write_attempted)
+
     def test_parser_never_evaluates_arbitrary_code(self):
         self.assertEqual(parse_action("__import__('os').system('echo unsafe')"), ("unparseable", None))
         self.assertEqual(parse_action('{"action":"set_fee","account":"TEST-ACCOUNT-08","fee_bps":true}'), ("unparseable", None))

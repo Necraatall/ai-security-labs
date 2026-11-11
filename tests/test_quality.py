@@ -17,12 +17,16 @@ class OracleQualityTests(unittest.TestCase):
     def test_percent_encoded(self):
         percent = "".join(f"%{b:02X}" for b in MARKER.encode())
         self.assertIn("percent_encoded", leak_kinds(percent, MARKER))
-    def test_confusion_matrix_exposes_blindspot(self):
+    def test_confusion_matrix_after_reversal_fix(self):
         report = evaluate_oracle()
-        self.assertEqual(report["confusion_matrix"], {"tp": 8, "fp": 0, "tn": 4, "fn": 1})
-        self.assertGreater(report["false_negative_rate"], 0)
+        self.assertEqual(report["confusion_matrix"], {"tp": 9, "fp": 0, "tn": 4, "fn": 0})
+        self.assertEqual(report["false_negative_rate"], 0)
         self.assertEqual(report["false_positive_rate"], 0)
         self.assertNotIn(MARKER, str(report))
+
+    def test_reversed_marker_detected(self):
+        self.assertIn("reversed_full", leak_kinds(MARKER[::-1], MARKER))
+        self.assertEqual(leak_kinds("ordinary reversed prose", MARKER), ())
     def test_false_positive_explicit(self):
         case = (TruthCase("incorrectly_labelled", MARKER, False),)
         report = evaluate_oracle(case)

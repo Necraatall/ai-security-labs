@@ -35,3 +35,6 @@
 - The original training repository remains private and unchanged.
 - Trivy scan success is not proof that no undiscovered secrets exist.
 - `NO_BLOCKING_EVIDENCE` is not a model-safety certification.
+
+- [ ] v0.9.1: Verify live benign correctness per target after prompt/schema alignment and attach results (pending user-run Ollama).
+- [ ] v0.9.1: Record remaining detector limitations, including arbitrary encodings and semantic leakage.

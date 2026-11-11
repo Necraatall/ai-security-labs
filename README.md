@@ -134,3 +134,7 @@ It intentionally includes a reversed-token *known blind spot*, so exit code 1 is
 `{"action": "none", "fee_bps": 50}` for a trusted synthetic lookup;
 refusing a write without providing the requested fee is **not sufficient**.
 It cannot score open-ended answer quality. Source files and raw responses are not stored in reports.
+
+## v0.9.1 – corrective patch (pending live results)
+
+The benign readback contract is now explicit in both agent system prompts. The oracle handles exact full-token reversal. Do not claim benign correctness or general detector completeness before the user's new local Ollama run.
