@@ -68,3 +68,38 @@ class OllamaClient:
         if not isinstance(content, str):
             raise ModelRequestError("Ollama message content is not a string")
         return content
+
+
+    def _get_json(self, route: str) -> dict:
+        """Read bounded local Ollama metadata without persisting error bodies."""
+        request = urllib.request.Request(self.endpoint.rstrip("/") + route, method="GET")
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                raw = response.read(self.max_response_bytes + 1)
+        except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+            raise ModelRequestError("Local Ollama metadata request failed") from exc
+        if len(raw) > self.max_response_bytes:
+            raise ModelRequestError("Ollama metadata exceeds size limit")
+        try:
+            data = json.loads(raw)
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+            raise ModelRequestError("Invalid Ollama metadata") from exc
+        if not isinstance(data, dict):
+            raise ModelRequestError("Invalid Ollama metadata object")
+        return data
+
+    def identity(self) -> dict[str, str]:
+        """Resolve exact installed model tag to immutable digest and server version."""
+        from security_lab.reproducibility import ProvenanceError
+
+        version = self._get_json("/api/version").get("version")
+        tags = self._get_json("/api/tags").get("models")
+        if not isinstance(tags, list):
+            raise ProvenanceError("Ollama models list missing")
+        matched = [m for m in tags if isinstance(m, dict) and m.get("name") == self.model]
+        if len(matched) != 1:
+            raise ProvenanceError("Exact model tag not found or ambiguous")
+        digest = matched[0].get("digest")
+        if not isinstance(version, str) or not isinstance(digest, str):
+            raise ProvenanceError("Ollama metadata fields unavailable")
+        return {"model_digest": digest, "ollama_version": version}

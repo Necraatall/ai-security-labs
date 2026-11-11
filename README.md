@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**Status: Public portfolio release v0.5 (2026-11-11). MIT-licensed; functional security lab with documented limitations.**
+**Status: Public v0.5.1; v0.6 reproducibility patch prepared for verification. MIT-licensed; security lab with documented limitations.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Original student attack files have **not yet been integrated** because provenance and dependencies must be reviewed first.
 
@@ -27,12 +27,13 @@ python3 -m security_lab.compare_cli \
   --endpoint http://127.0.0.1:11434 \
   --repeats 3 \
   --json-output artifacts/comparison.json \
-  --html-output artifacts/comparison.html
+  --html-output artifacts/comparison.html \
+  --manifest-output artifacts/repro-manifest.json
 
 echo "EXIT CODE: $?"
 ```
 
-`--repeats` is **1–20**. Each repeat uses a fresh random 96-bit synthetic canary. Each case calls the model once per repeat. No actual credentials are used. The tool generates JSON and standalone HTML without storing the canary, prompts, raw model replies or provider error messages.
+`--repeats` is **1–20**. Each repeat uses a fresh random 96-bit synthetic canary. Each case calls the model once per repeat. No actual credentials are used. The tool generates JSON, HTML and a detached SHA-256 manifest without storing the canary, prompts, raw model replies or provider error messages. v0.6 fails before calling the model if exact tag digest, Ollama version or clean tracked Git commit cannot be established.
 
 **Two separate findings must not be confused:**
 
@@ -73,3 +74,23 @@ MIT — see [LICENSE](LICENSE). The original training/course materials are not i
 
 The repository is **public**; see [TODO](TODO.md) for explicitly unfinished enhancements.
 Publishing a usable security lab does not mean that every research goal, enhanced oracle, or reproducibility artifact is complete. The output guard detects recognizable canary disclosures only; it does not establish general agent or model safety.
+
+## v0.6 reproducibility (pending a real rerun)
+
+The CLI resolves the **exact model tag** from Ollama `/api/tags` and obtains server
+version from `/api/version` over loopback. It captures the current 40-character Git
+commit SHA (clean tracked tree required), OS release/architecture and Python version,
+experiment settings, timestamps, run ID and SHA-256 values of exact JSON/HTML bytes.
+The detached manifest is **not signed** and is not a full bitwise-reproducible
+runtime image: seed/hardware scheduling, Ollama runtime and model internals can
+still make results nondeterministic. See [reproducibility](docs/REPRODUCIBILITY.md).
+
+Verify an existing bundle without Ollama:
+
+```bash
+python3 -m scripts.verify_repro_bundle \
+  artifacts/repro-manifest.json artifacts/comparison.json artifacts/comparison.html
+```
+
+Do not commit `artifacts/`: it contains local evaluation evidence even though
+raw model content is intentionally excluded.
