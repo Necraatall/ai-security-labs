@@ -48,3 +48,12 @@
 ## Gates
 
 No publication without explicit approval and a provenance/license/secrets audit. Distinguish synthetic mock tests from actual LLM tests. Never claim a filtered reply proves protection against unknown attack formats.
+
+## v0.6 — reproducibility implementation (pending user's live validation)
+
+- Added fail-closed Ollama exact model-tag digest and server version discovery.
+- Added source Git commit and tracked-tree cleanliness checks plus coarse local runtime metadata.
+- Added detached SHA-256 JSON/HTML evidence manifest and offline bundle verifier.
+- Offline test suite: 50/50 PASS in assistant container. Real Ollama/host check: **NOT RUN** here.
+- This is experiment traceability, NOT model-safety certification, cryptographic signature,
+  or deterministic replay of model output.

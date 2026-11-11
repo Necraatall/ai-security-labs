@@ -115,9 +115,14 @@ class TestComparison(unittest.TestCase):
     def test_cli_with_mock(self):
         with tempfile.TemporaryDirectory() as tmp, patch(
             "security_lab.compare_cli.OllamaClient", return_value=EchoToken()
-        ):
+        ), patch("security_lab.compare_cli.collect_metadata", return_value={
+            "git": {"commit": "b" * 40, "tracked_tree_clean": True},
+            "model": {"digest_sha256": "a" * 64, "ollama_version": "test"},
+        }):
             status = main(["--model", "mock", "--repeats", "2", "--json-output",
                            str(Path(tmp) / "report.json"), "--html-output",
-                           str(Path(tmp) / "report.html")])
+                           str(Path(tmp) / "report.html"), "--manifest-output",
+                           str(Path(tmp) / "manifest.json")])
             self.assertEqual(status, 0)
             self.assertTrue((Path(tmp) / "report.json").is_file())
+            self.assertTrue((Path(tmp) / "manifest.json").is_file())
