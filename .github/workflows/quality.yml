@@ -1,0 +1,32 @@
+name: Python quality and synthetic security gate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-quality:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile Python sources
+        run: python -m compileall -q security_lab tests scripts
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Run synthetic security fixtures
+        run: python -m security_lab.cli run --output artifacts/results.json --fail-on-compromise
+      - name: Validate synthetic evidence strictly
+        run: python scripts/verify_synthetic_evidence.py artifacts/results.json
