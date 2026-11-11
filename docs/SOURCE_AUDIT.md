@@ -26,4 +26,8 @@ The v0.1 project independently implements a small tenant-authorization and synth
 
 ## v0.3 provenance note
 
-This release implements new generic test primitives derived from the previously agreed goals. No original course source or Git history has been included. The user's original FinanceBot work is *not yet integrated*. Detailed review of original/teacher/student provenance, attribution and copyright remains a release blocker.
+This release implements new generic test primitives derived from the previously agreed goals. No original course source or Git history has been included. The user's original FinanceBot work is *not yet integrated*. Those original candidate files remain excluded; reviewing them is a prerequisite only for any future incorporation, not a blocker for publishing the independently authored baseline.
+
+## Public baseline clarification — 2026-11-11
+
+The v0.5 public portfolio repository contains new synthetic lab implementations, not the reviewed course candidates. This is a scoped provenance statement, **not** proof of a comprehensive third-party authorship audit. Do not port any original homework, instructor code, or other students' work without individual ownership and license checks.

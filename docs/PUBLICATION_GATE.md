@@ -1,18 +1,18 @@
-# Publication gate — Private → Public
+# Publication record — v0.5 (2026-11-11)
 
-Evidence cutoff: 2026-11-11. The entries below distinguish user-executed scans from independent CI results.
+**Actual status: PUBLIC.** This document records the observed release process; it is no longer a prepublication NO-GO checklist. Evidence described as user-reported was executed on the user's machine, not independently reproduced here.
 
-| Control | State | Evidence / limitation |
+| Release control | Result | Evidence / scope |
 | --- | --- | --- |
-| Independent repository history | PASS (user evidence) | New Git root at `090f1a5`; no course history imported. `git rev-list --all` returned 3 commits at audit time. |
-| Offline unit tests | PASS | User ran 43/43 tests; six GitHub CI jobs succeeded on Python 3.11, 3.12 and 3.13 for PR #1. |
-| Synthetic security evaluation | PASS | User ran 7/7 fixtures and strict evidence validation; this does not prove LLM safety. |
-| Real Ollama experiment | PASS WITH SECURITY FINDINGS | User-reported Gemma run: 12 model requests, six observed plaintext/encoded marker exposures before output guard, six blocked, zero errors; local report not yet committed. |
-| Course content / provenance | PASS FOR INCLUDED CONTENT, LIMITED | `docs/SOURCE_AUDIT.md` documents candidate files withheld. Original course modules, reports, and Git history were not incorporated. No claim of independent authorship for the original course. |
-| Secret scan, working tree | PASS (user evidence) | Trivy 0.76.2, `fs --scanners secret`, exit 0, no findings. |
-| Secret scan, reachable commits | PASS (user evidence) | Trivy 0.76.2 scanned exports of `cef87ab`, `15c594a`, `090f1a5`; exit 0 and no findings. Does not cover unreachable Git objects, remote-only refs, or all possible secrets. |
-| GitHub Actions dependency pinning | IMPLEMENTED, PENDING CI | Checkout pinned to `11bd719...` (v4.2.2); setup-python pinned to `a26af69...` (v5.6.0). Verify in PR CI. |
-| License | MIT PROPOSED FOR RELEASE | `LICENSE` copyright 2026 Necraatall; user selected MIT. Verify rights to all included independently authored files. |
-| Final publication approval | PENDING | Visibility must remain Private until post-merge CI, final diff review, and explicit user instruction to make Public. |
+| Git repository boundary | PASS (user evidence) | Independent Git root `090f1a5` with no imported course history; three reachable commits at audit time |
+| Tests | PASS (user evidence) | Local 43/43 unit tests; 7/7 synthetic fixtures; evidence validator PASS |
+| GitHub CI | PASS (user evidence) | PR #1 and PR #2 each had six successful checks across Python 3.11–3.13 |
+| Local Ollama demonstration | PASS WITH SECURITY FINDINGS | 12 requests, six unprotected baseline canary leaks, six same-response output blocks, zero transport errors; not a general security proof |
+| Source provenance | LIMITED REVIEW | Only independently created portfolio lab files included; candidate course/student source withheld per `SOURCE_AUDIT.md`; independent forensic authorship audit not claimed |
+| Working tree secret scan | PASS (user evidence) | Trivy 0.76.2 `fs --scanners secret`, exit 0, zero findings |
+| Reachable commit snapshots | PASS (user evidence) | Trivy 0.76.2 scanned exported commits `090f1a5`, `15c594a`, `cef87ab`; no findings. Excludes unreachable Git objects and unknown detection gaps |
+| GitHub Actions dependencies | IMPLEMENTED, CI PASS | SHA-pinned `actions/checkout` v4.2.2 and `actions/setup-python` v5.6.0 in PR #2 |
+| License | MIT | `LICENSE` added in merged PR #2 |
+| Publication | COMPLETE (user evidence) | PR #2 merged into `main` (`d6488c3`); `gh repo view` returned `isPrivate: false` on 2026-11-11 |
 
-**Decision: NO-GO until new PR checks pass and final release approval is given.**
+**Release conclusion:** public portfolio baseline published. Open research, source-review and reproducibility improvements remain in `TODO.md`. The lab is not a certification of model safety and does not establish independent hardened-target security.
