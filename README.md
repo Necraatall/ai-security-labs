@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**Status: v1.0.0rc1 release candidate (PR #9, commit `f0e6a60`). GitHub CI passed on this commit; security review and final v1.0 publication are pending. Public MIT-licensed synthetic security lab, not a production security certification.**
+**Status: v1.0.0 final-release preparation. PR #9 was merged (commit `e80f5cbbc884ee8aa644344ec6f3b52126a92125`); the v1.0.0 GitHub Release and independent acceptance are pending. Public MIT-licensed synthetic security lab, not a production security certification.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Owner-supplied FinanceBot scenario concepts were independently reconstructed as synthetic tests without importing the course target or source history.
 
@@ -164,7 +164,7 @@ python3 scripts/verify_distribution.py dist
 
 A CI PASS is evidence for this checked scope, not a security certification.
 
-## v1.0 source-release candidate
+## v1.0 source-release procedure
 
 `python3 -m scripts.release_bundle create --repo . --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json` makes a deterministic ZIP of the **exact clean committed Git snapshot**. Run `python3 -m scripts.release_bundle verify --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json` to check its complete manifest. This is an **unsigned source-integrity bundle**, distinct from the Ollama experiment's reproducibility manifest. See [release acceptance](docs/RELEASE_CANDIDATE.md) and [threat model](docs/THREAT_MODEL.md).
 
@@ -178,3 +178,8 @@ A CI PASS is evidence for this checked scope, not a security certification.
 - **Environment:** local development uses Ubuntu 22.04 LTS. CI currently uses `ubuntu-latest` (not pinned to Ubuntu 22.04). SHA-pinned checkout/setup-python versions are known to emit a GitHub deprecation warning about their Node.js 20 runtime; the runner currently forces Node.js 24. Read [environment and CI notes](docs/ENVIRONMENT.md).
 
 The project demonstrates bounded security experiments; passing offline tests, scanners, or a finite oracle does not prove that a real LLM is secure.
+
+
+## Release acceptance — v1.0.0
+
+The published release is accepted only after a distinct reviewer or maintainer records a disposition for the documented limitations in `docs/SECURITY_REVIEW.md`, confirms the included files are authorized for publication, and the exact final commit passes CI. The final source ZIP and detached manifest must be built from **that commit**, verified, hashed and attached to a GitHub Release. A green synthetic oracle is not a model-safety certification; Trivy `vuln,misconfig` reported no eligible inputs rather than a clean result. See [TODO](TODO.md) for the remaining release-only gates.

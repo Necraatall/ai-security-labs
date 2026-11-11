@@ -4,11 +4,23 @@ from __future__ import annotations
 import argparse
 import email
 import tarfile
+import tomllib
 import zipfile
 from pathlib import Path, PurePosixPath
 
 PACKAGE = "ai_security_labs"
-VERSION = "1.0.0rc1"
+def project_version() -> str:
+    """Get the release identity from the single source of truth, pyproject.toml."""
+    project_file = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    with project_file.open("rb") as handle:
+        metadata = tomllib.load(handle).get("project", {})
+    version = metadata.get("version")
+    if not isinstance(version, str) or not version:
+        raise ValueError("Project version unavailable")
+    return version
+
+
+VERSION = project_version()
 REQUIRED_CODE = ("security_lab/agent_eval.py", "security_lab/agent_targets.py",
                  "security_lab/oracle.py", "scripts/verify_repro_bundle.py")
 

@@ -5,17 +5,18 @@ import io
 import tarfile
 import tempfile
 import unittest
+import tomllib
 import zipfile
 from pathlib import Path
 
-from scripts.verify_distribution import DistributionError, verify_distribution
+from scripts.verify_distribution import DistributionError, VERSION, verify_distribution
 
 
 class DistributionTests(unittest.TestCase):
     def make_archive(self, destination: Path, *, missing: bool = False,
                      forbidden: bool = False) -> None:
         package = "ai_security_labs"
-        version = "1.0.0rc1"
+        version = VERSION
         code = ("security_lab/agent_eval.py", "security_lab/agent_targets.py",
                 "security_lab/oracle.py", "scripts/verify_repro_bundle.py")
         with zipfile.ZipFile(destination / f"{package}-{version}-py3-none-any.whl", "w") as wheel:
@@ -31,6 +32,12 @@ class DistributionTests(unittest.TestCase):
                 member = tarfile.TarInfo(f"{package}-{version}/{name}")
                 member.size = len(raw)
                 sdist.addfile(member, io.BytesIO(raw))
+
+    def test_distribution_version_matches_project_metadata(self) -> None:
+        project = Path(__file__).resolve().parents[1] / "pyproject.toml"
+        with project.open("rb") as handle:
+            expected = tomllib.load(handle)["project"]["version"]
+        self.assertEqual(VERSION, expected)
 
     def test_valid_archive(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
