@@ -163,3 +163,7 @@ python3 scripts/verify_distribution.py dist
 ```
 
 A CI PASS is evidence for this checked scope, not a security certification.
+
+## v1.0 source-release candidate
+
+`python3 -m scripts.release_bundle create --repo . --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json` makes a deterministic ZIP of the **exact clean committed Git snapshot**. Run `python3 -m scripts.release_bundle verify --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json` to check its complete manifest. This is an **unsigned source-integrity bundle**, distinct from the Ollama experiment's reproducibility manifest. See [release acceptance](docs/RELEASE_CANDIDATE.md) and [threat model](docs/THREAT_MODEL.md).

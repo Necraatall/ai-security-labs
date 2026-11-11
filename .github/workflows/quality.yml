@@ -56,6 +56,10 @@ jobs:
         run: python -m build --sdist --wheel --outdir dist
       - name: Verify release archive contents
         run: python scripts/verify_distribution.py dist
+      - name: Create exact-commit source release evidence
+        run: python -m scripts.release_bundle create --repo . --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json
+      - name: Verify source release evidence
+        run: python -m scripts.release_bundle verify --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json
       - name: Smoke-test installed wheel outside repository
         run: |
           python -m venv /tmp/ai-security-labs-wheel-venv

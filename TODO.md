@@ -42,3 +42,12 @@
 - [x] v0.10 implementation: CI jobs for Ruff, Bandit, dependency metadata audit,
   wheel/sdist verification and isolated wheel import (CI execution pending).
 - [ ] v0.10 verify new GitHub Actions job end-to-end and address real findings.
+
+## v1.0 release candidate
+
+- [x] Add deterministic exact-commit source ZIP builder, integrity verifier and tamper regression tests (locally implemented; exact GitHub CI pending).
+- [x] Document threat boundaries, unsigned provenance limits and release acceptance checks.
+- [ ] Independently review the complete final code and resolve/disposition findings.
+- [ ] Run new v1.0 CI against the committed PR snapshot and preserve exact evidence.
+- [ ] Publish source bundle for the accepted Git commit; do not imply a signed attestation.
+- [ ] Resolve stale historical READMEs/TODO statements against actual release evidence.

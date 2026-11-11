@@ -85,3 +85,7 @@ Adds a narrow, measurable benign lookup quality oracle and synthetic hand-labell
 Adds independent DevSecOps CI job, package metadata/build contract,
 release archive validator, and negative regression tests. External Ruff,
 Bandit, pip-audit and PEP 517 build are NOT_RUN in this offline patch environment.
+
+## v1.0 candidate — source evidence and threat modelling
+
+Prepared an unsigned deterministic source ZIP from clean Git HEAD, full per-file SHA-256 inventory, offline verifier with negative tamper tests, and explicit threat model. No model or CI run should be inferred from these documents. Final publication awaits exact-commit GitHub CI and independent review; build and model-result reproducibility remain scoped limitations.
