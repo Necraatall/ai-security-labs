@@ -21,7 +21,8 @@
 - [ ] **v0.6:** Verify real local Ollama run and archived SHA-256 manifest; implementation/offline tests prepared. Capture model digest, Ollama version, coarse host environment, exact clean Git commit and report hashes. Full binary/runtime reproducibility is not claimed.
 - [x] Independently reconstruct 20 FinanceBot scenario concepts without course scaffold (v0.7 offline implementation).
 - [ ] Confirm original case authorship, run v0.7 on actual Ollama and add human-reviewed verdicts for non-secret goals.
-- [ ] Add separate vulnerable and hardened targets with independent requests, multi-turn scenarios and tool-mediated attack coverage.
+- [x] v0.8: Add separate synthetic vulnerable and hardened state-mutation targets, independent requests, multi-turn scenarios and untrusted tool-output injection (offline tests).
+- [ ] Validate v0.8 paired targets on local Ollama and independently review behavior/limitations.
 - [ ] Measure benign task correctness and false-positive/false-negative rates, beyond marker leakage alone.
 - [ ] Extend the oracle beyond currently supported Base64, hex, Unicode escapes and partial token detection; add regression coverage.
 - [ ] Evaluate optional Ruff, dependency/security scanning and package-build checks as additional CI quality gates.

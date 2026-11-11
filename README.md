@@ -112,3 +112,7 @@ manual assessment using the model outputs in a controlled private session;
 raw model responses are not included in the report.
 
 See [FinanceBot provenance](docs/FINANCEBOT_PROVENANCE.md).
+
+## Independent agent targets (v0.8)
+
+Run `python3 -m security_lab.agent_cli --model gemma3:4b-it-q8_0 --output artifacts/agent-comparison.json` for paired isolated synthetic vulnerable/hardened targets. The tool simulation never changes a real account. See [trust boundary](docs/AGENT_TARGETS.md).
