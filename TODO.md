@@ -1,40 +1,48 @@
-# AI Security Labs — verified status and release backlog
+# AI Security Labs — v1.0 release checklist
 
-**Current:** public v1.0.0rc1 on open PR #9 (`f0e6a60`); final `v1.0.0` is **NOT RELEASED**. Checkboxes distinguish evidence from aspirations. Updated 2026-11-11.
+**Current state (2026-11-11):** v1.0.0 finalization in progress. PR #9 has been **MERGED** (`e80f5cbbc884ee8aa644344ec6f3b52126a92125`). The final `v1.0.0` GitHub Release is **NOT YET PUBLISHED**. Only evidenced work is checked.
 
-## Completed and evidenced
+## Completed and verified — milestones v0.1 through v1.0-rc1
 
-- [x] Separate public MIT-licensed repository; training/course repository remains private, without reused Git history.
-- [x] Offline synthetic tenant-boundary suite, FinanceBot scenario reconstruction (20 cases/25 turns), and independent synthetic vulnerable/hardened agent targets.
-- [x] Local Ollama live evidence reported: v0.8 12/12 requests; v0.9.1 Gemma 42/42 requests, benign correct 12/12, vulnerable unauthorized writes 7, hardened writes 0, vulnerable marker leaks 1, hardened marker leaks 0. These are bounded observed results, not general security claims.
-- [x] Limited labelled oracle metric: v0.9.1 13 synthetic fixtures, TP=9/TN=4/FP=0/FN=0; complete-token reversal handling fixed.
-- [x] v0.6 model-report manifest implementation and verifier (SHA-256 of JSON/HTML), with exact model and Git provenance contract; full independent reproduction of every historical model run is **not** claimed.
-- [x] v0.10 Ruff, Bandit, pip-audit (project metadata only), wheel/sdist verification and isolated wheel smoke test; PR #8 merged with green CI.
-- [x] v1.0-rc1 source bundle builder/verifier, tamper tests, threat model; PR #9 head `f0e6a60` GitHub Actions run `43028293678` PASS across four jobs.
-- [x] v1.0-rc1 maintainer-local unit tests 96/96 PASS (reported transcript).
-- [x] Trivy v0.76.2 `secret` filesystem scan on `f0e6a60`: no findings reported.
-- [x] Trivy v0.76.2 `vuln,misconfig` run: **documented as NOT SCANNED** (no supported files), not counted as a clean security result.
-- [x] Documentation reconciled with v1.0-rc1 and GitHub CI; explicit runtime/host distinctions and review limitations.
+- [x] v0.1: independent synthetic lab and basic tenant-boundary behavior; original course repository remains private.
+- [x] v0.2: controlled live Ollama leakage experiment, with narrow, explicitly documented evidence.
+- [x] v0.3: extended canary detectors and same-response filter; no general safety assertion.
+- [x] v0.4: GitHub Actions matrix for Python 3.11, 3.12 and 3.13, strict synthetic evidence validation.
+- [x] v0.5/v0.5.1: public independent MIT repository, SHA-pinned Actions, provenance/publication documentation.
+- [x] v0.6: exact-model/Git experiment manifest implementation and detached JSON/HTML SHA-256 verifier (not a fully reproducible runtime).
+- [x] v0.7: independently reconstructed FinanceBot concepts (20 synthetic cases, 25 turns), no imported teaching code.
+- [x] v0.8/v0.8.1: separate vulnerable and hardened synthetic targets, multi-turn scenarios and fail-closed malformed model decisions.
+- [x] v0.8 observed live experiment: 12/12 model requests; vulnerable unauthorized writes 3, hardened writes 0, subject to narrow scope.
+- [x] v0.9: benign readback and narrow labelled oracle evaluation.
+- [x] v0.9.1: complete-token reversal fix; 13 synthetic oracle fixtures TP=9, TN=4, FP=0, FN=0.
+- [x] v0.9.1 observed live Gemma test: 42/42 model requests, benign correct 12/12, vulnerable unauthorized writes 7, hardened writes 0, vulnerable marker leaks 1, hardened 0; `REVIEW_REQUIRED`, not a safety certificate.
+- [x] v0.10: Ruff, Bandit, pip-audit project-metadata scan, wheel/sdist validation and isolated import smoke test; PR #8 merged with green CI.
+- [x] v1.0-rc1: threat model, source ZIP/manifest builder, deterministic/tamper tests and written limitations.
+- [x] v1.0-rc1: maintainer-reported 96/96 local tests and GitHub CI 4/4 PASS on PR #9 head.
+- [x] v1.0-rc1: Trivy 0.76.2 secret scan (no findings reported) on `f0e6a60`.
+- [x] v1.0-rc1: Trivy vulnerability and misconfiguration scan correctly classified **NOT SCANNED** because there were no eligible inputs; not mislabeled PASS.
+- [x] v1.0-rc1: internal AI-assisted security review and evidence limitations documented; external/independent acceptance not claimed.
+- [x] v1.0-rc1: PR #9 merged; commit `e80f5cbbc884ee8aa644344ec6f3b52126a92125`.
+- [x] Reconciled historical milestones and documented local Ubuntu 22.04 vs CI `ubuntu-latest` and Node.js runtime deprecation.
 
-## Release blockers for final v1.0.0
+## Remaining gates — final GitHub Release v1.0.0
 
-- [ ] Independent reviewer acceptance of code and trust boundaries; resolve or explicitly accept material review findings (see `docs/SECURITY_REVIEW.md`).
-- [ ] If review changes code, rerun unit tests, Ruff/Bandit/pip-audit, CI and relevant Ollama probes on the new exact SHA.
-- [ ] Review source provenance/attribution and verify no nonpublic training materials are included before publication.
-- [ ] Decide and document whether `vuln,misconfig` scan needs alternative input/scope; do not misreport a skipped scan.
-- [ ] Merge PR #9 only after review and CI acceptance; confirm `main` SHA and release version.
-- [ ] Build/verify the **final release-commit** ZIP and manifest, record both SHA-256 values, attach artifacts to GitHub Release `v1.0.0`, and verify published release assets against the accepted commit.
-- [ ] Update `Necraatall/Necraatall` profile README with the public project link and accurate release status (separate repo/change).
+- [ ] **Acceptance/provenance:** independent reviewer or release owner verifies actual final-source trust boundaries, accepts/disposes SR-03/SR-04 limitations, and confirms authorized publication of every included source file. Record who accepted, the exact commit and any known residual risks; never call internal AI review independent.
+- [ ] **Final build CI:** merge version `1.0.0` and synchronization changes, confirm tests, Ruff, Bandit, pip-audit, wheel/sdist and archive verifier PASS on the final commit. When code changes, rerun relevant Ollama probes or clearly mark the missing rerun.
+- [ ] **Published assets:** create and verify the deterministic source ZIP and manifest from the *final tagged commit*, record both SHA-256 values, publish GitHub Release `v1.0.0`, then verify the uploaded assets match the manifest and commit.
 
-## Research enhancements beyond v1.0 (not automatically blockers)
+## Portfolio follow-up (separate from release acceptance)
 
-- [ ] Complete independent labelling of live model false-positive/false-negative rates beyond the small synthetic oracle fixtures.
-- [ ] Evaluate semantic/tool-mediated leakage and additional novel encodings, with explicit limitations.
-- [ ] Verify/curate each original course-inspired scenario's authorship and any required attribution; do not import nonpublic course code.
-- [ ] Assess more realistic authenticated write flows (current hardened demo deliberately allows no writes).
-- [ ] Optional Trivy CI integration and immutable signed release provenance/attestations.
-- [ ] Modernize SHA-pinned GitHub Actions to supported Node.js runtime and consider pinning a runner image; do not disguise host/runtime mismatch.
+- [ ] Update `Necraatall/Necraatall` profile README with the public release link and precise status.
 
-## Interpretation
+## Future research — v1.1+ (not part of v1.0 acceptance)
 
-`NO_BLOCKING_EVIDENCE`, clean unit tests and CI PASS are **scoped evidence, not a security certification**. Historical observations and current source revision must never be conflated.
+- Live independently labelled false-positive/false-negative evaluation beyond 13 synthetic fixtures.
+- Semantic/tool-mediated leakage and additional encodings; realistic authorized write workflows.
+- Optional Trivy CI integration, signed release attestations and external provenance verification.
+- Review and upgrade SHA-pinned Actions to supported Node.js runtime; test runner-image pinning.
+- If original course files are ever reused, perform a separate file-by-file authorship/license review first; do not import nonpublic source.
+
+## Evidence interpretation
+
+A green CI, clean secrets scan, synthetic detector results or `NO_BLOCKING_EVIDENCE` applies only to the declared scope. Unsigned manifests verify integrity relative to supplied hashes, not authenticity. Historical LIVE results are not a test of the final release commit.
