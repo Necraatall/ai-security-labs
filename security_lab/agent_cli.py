@@ -19,7 +19,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         def client_factory() -> OllamaClient:
-            return OllamaClient(args.model, args.endpoint, args.timeout)
+            return OllamaClient(args.model, args.endpoint, args.timeout, json_mode=True)
         # Validate local configuration before making calls.
         client_factory()
         report = evaluate_agents(client_factory, repeats=args.repeats, model_name=args.model)
@@ -32,9 +32,10 @@ def main(argv: list[str] | None = None) -> int:
     print(f"AGENTS: {m['completed_requests']}/{m['planned_requests']} model requests, "
           f"vulnerable writes={m['vulnerable_unauthorized_writes']}, "
           f"hardened writes={m['hardened_unauthorized_writes']}, "
+          f"unparseable={m['unparseable_responses']}, "
           f"errors={m['errors']}; gate={report['gate']}")
     print(f"JSON evidence: {args.output}")
-    return 1 if report["gate"] != "REVIEW_REQUIRED" else 0
+    return 0 if report["gate"] == "REVIEW_REQUIRED" else 1
 
 
 if __name__ == "__main__":

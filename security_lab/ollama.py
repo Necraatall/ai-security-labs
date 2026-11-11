@@ -19,6 +19,7 @@ class OllamaClient:
     endpoint: str = "http://127.0.0.1:11434"
     timeout: float = 45.0
     max_response_bytes: int = 262_144
+    json_mode: bool = False
 
     def __post_init__(self) -> None:
         url = urlsplit(self.endpoint)
@@ -54,6 +55,7 @@ class OllamaClient:
             "model": self.model,
             "messages": messages,
             "stream": False,
+            **({"format": "json"} if self.json_mode else {}),
             "options": {"temperature": 0, "num_predict": 256},
         }).encode("utf-8")
         request = urllib.request.Request(
