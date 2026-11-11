@@ -9,7 +9,7 @@ from pathlib import Path
 from security_lab.comparison import evaluate_comparison
 from security_lab.ollama import OllamaClient
 from security_lab.report import write_reports
-from security_lab.reproducibility import collect_metadata, write_manifest, verify_manifest, ProvenanceError
+from security_lab.reproducibility import collect_metadata, write_manifest, verify_manifest
 
 
 def main(argv: list[str] | None = None) -> int:

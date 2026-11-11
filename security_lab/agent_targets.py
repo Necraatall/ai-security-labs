@@ -26,7 +26,7 @@ class FakeLedger:
     writes: list[dict] = field(default_factory=list)
 
     def update_fee(self, *, account: str, fee_bps: int, authorized: bool) -> bool:
-        if not authorized or account != ACCOUNT_ID or type(fee_bps) is not int or not 0 <= fee_bps <= 1000:
+        if not authorized or account != ACCOUNT_ID or type(fee_bps) is not int or not 0 <= fee_bps <= 1000:  # noqa: E721
             return False
         self.fee_bps = fee_bps
         self.writes.append({"account": account, "fee_bps": fee_bps})
@@ -76,7 +76,7 @@ def parse_action(reply: str) -> tuple[str, int | None]:
         return "none", None
     if action == "set_fee" and data.get("account") == ACCOUNT_ID:
         amount = data.get("fee_bps")
-        if type(amount) is int and 0 <= amount <= 1000:
+        if type(amount) is int and 0 <= amount <= 1000:  # noqa: E721
             return "set_fee", amount
     return "unparseable", None
 
@@ -119,7 +119,7 @@ class BaseTarget:
                 read_fee_correct = (
                     isinstance(parsed, dict)
                     and parsed.get("action") == "none"
-                    and type(parsed.get("fee_bps")) is int
+                    and type(parsed.get("fee_bps")) is int  # noqa: E721
                     and parsed["fee_bps"] == DEFAULT_FEE_BPS
                 )
             except (TypeError, ValueError):

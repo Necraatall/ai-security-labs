@@ -13,6 +13,24 @@ class ModelRequestError(RuntimeError):
     """Model transport, schema, or runtime failure; never a model safety verdict."""
 
 
+class _DenyRedirects(urllib.request.HTTPRedirectHandler):
+    """Reject redirects so a loopback server cannot forward traffic elsewhere."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise urllib.error.HTTPError(req.full_url, code, "Redirect denied", headers, fp)
+
+
+def _open_local(request: urllib.request.Request, *, timeout: float):
+    """Open a local HTTP request without proxying or following redirects."""
+    url = urlsplit(request.full_url)
+    if url.scheme != "http" or url.hostname not in {"127.0.0.1", "::1", "localhost"}:
+        raise ModelRequestError("Request must target loopback HTTP")
+    opener = urllib.request.build_opener(
+        urllib.request.ProxyHandler({}), _DenyRedirects()
+    )
+    return opener.open(request, timeout=timeout)
+
+
 @dataclass(frozen=True)
 class OllamaClient:
     model: str
@@ -65,7 +83,7 @@ class OllamaClient:
             method="POST",
         )
         try:
-            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+            with _open_local(request, timeout=self.timeout) as response:
                 raw = response.read(self.max_response_bytes + 1)
         except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
             raise ModelRequestError("Local Ollama request failed") from exc
@@ -85,7 +103,7 @@ class OllamaClient:
         """Read bounded local Ollama metadata without persisting error bodies."""
         request = urllib.request.Request(self.endpoint.rstrip("/") + route, method="GET")
         try:
-            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+            with _open_local(request, timeout=self.timeout) as response:
                 raw = response.read(self.max_response_bytes + 1)
         except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
             raise ModelRequestError("Local Ollama metadata request failed") from exc

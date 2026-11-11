@@ -1,8 +1,8 @@
 # AI Security Labs
 
-**Status: Public v0.5.1; v0.6 reproducibility patch prepared for verification. MIT-licensed; security lab with documented limitations.**
+**Status: Public development through v0.9.1 (PR #7 merged); v0.10 DevSecOps patch pending CI verification. MIT-licensed, synthetic security lab with documented limitations.**
 
-An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Original student attack files have **not yet been integrated** because provenance and dependencies must be reviewed first.
+An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Owner-supplied FinanceBot scenario concepts were independently reconstructed as synthetic tests without importing the course target or source history.
 
 ## Requirements
 
@@ -135,6 +135,31 @@ It intentionally includes a reversed-token *known blind spot*, so exit code 1 is
 refusing a write without providing the requested fee is **not sufficient**.
 It cannot score open-ended answer quality. Source files and raw responses are not stored in reports.
 
-## v0.9.1 – corrective patch (pending live results)
+## v0.9.1 – live validation completed
 
-The benign readback contract is now explicit in both agent system prompts. The oracle handles exact full-token reversal. Do not claim benign correctness or general detector completeness before the user's new local Ollama run.
+The benign readback contract is explicit in both agent system prompts and the oracle handles exact full-token reversal. User-reported Gemma live run: 42/42 requests, benign correctness 12/12, vulnerable unauthorized writes 7, hardened writes 0, vulnerable marker leaks 1, hardened leaks 0, gate REVIEW_REQUIRED. This is not a model safety certification.
+
+## v0.10 DevSecOps quality gate
+
+The `devsecops-gate` GitHub Actions job runs Ruff correctness lint, Bandit
+medium/high Python SAST findings, `pip-audit .` against project dependency
+metadata, wheel+sdist builds, release archive verification, and a wheel import
+smoke test outside the repository. Tool versions are pinned in the workflow.
+The application deliberately has **zero declared runtime dependencies**, so
+the dependency audit cannot demonstrate safety of the developer toolchain,
+Python runtime, Ollama server/model, or transitive dependencies of external
+software. Network/backend outages may cause the vulnerability audit to fail;
+never convert such failures to PASS.
+
+Run locally (tool installation requires access to PyPI):
+
+```bash
+python3 -m pip install 'ruff==0.17.4' 'bandit==1.9.4' 'pip-audit==2.10.1' 'build==1.6.1'
+ruff check security_lab scripts tests
+bandit -r security_lab scripts -ll
+pip-audit .
+python3 -m build --sdist --wheel --outdir dist
+python3 scripts/verify_distribution.py dist
+```
+
+A CI PASS is evidence for this checked scope, not a security certification.

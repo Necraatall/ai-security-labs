@@ -38,3 +38,7 @@
 
 - [ ] v0.9.1: Verify live benign correctness per target after prompt/schema alignment and attach results (pending user-run Ollama).
 - [ ] v0.9.1: Record remaining detector limitations, including arbitrary encodings and semantic leakage.
+
+- [x] v0.10 implementation: CI jobs for Ruff, Bandit, dependency metadata audit,
+  wheel/sdist verification and isolated wheel import (CI execution pending).
+- [ ] v0.10 verify new GitHub Actions job end-to-end and address real findings.
