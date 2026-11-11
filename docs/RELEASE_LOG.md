@@ -68,3 +68,7 @@ No publication without explicit approval and a provenance/license/secrets audit.
 ## v0.8 – synthetic independent agents
 
 Added isolated vulnerable/hardened agents, fake ledger mutation boundary, multi-turn test and untrusted lookup injection, case-local independent model adapters, and metadata-only JSON report. Offline test evidence and actual Ollama verification are separate. No real transactions.
+
+## v0.9 candidate
+
+Adds a narrow, measurable benign lookup quality oracle and synthetic hand-labelled detector confusion matrix (including explicit known FN). Real Ollama experiment and CI not yet run. No claim of deployment false-positive or false-negative rate.

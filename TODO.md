@@ -23,8 +23,10 @@
 - [ ] Confirm original case authorship, run v0.7 on actual Ollama and add human-reviewed verdicts for non-secret goals.
 - [x] v0.8: Add separate synthetic vulnerable and hardened state-mutation targets, independent requests, multi-turn scenarios and untrusted tool-output injection (offline tests).
 - [ ] Validate v0.8 paired targets on local Ollama and independently review behavior/limitations.
-- [ ] Measure benign task correctness and false-positive/false-negative rates, beyond marker leakage alone.
-- [ ] Extend the oracle beyond currently supported Base64, hex, Unicode escapes and partial token detection; add regression coverage.
+- [x] v0.9: Measure narrow benign synthetic fee-read correctness and oracle confusion matrix against hand-labelled offline fixtures.
+- [ ] Measure live model false positives/false negatives with independently labelled model responses; expand beyond narrow fee-read correctness.
+- [x] v0.9: Add Base32 and fully percent-encoded marker detection with regression tests.
+- [ ] Extend beyond supported encodings, including known reversed-marker blind spot and more realistic transformed/tool-mediated leaks.
 - [ ] Evaluate optional Ruff, dependency/security scanning and package-build checks as additional CI quality gates.
 - [ ] Collect independent review, broader threat-model evidence and full release reproducibility bundle for a future mature release.
 
