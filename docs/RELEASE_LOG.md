@@ -64,3 +64,7 @@ No publication without explicit approval and a provenance/license/secrets audit.
 - No imported course code or original prompt text. Four goal categories.
 - Offline unit tests; Ollama LIVE and human verdicts not yet executed.
 - Provenance marked provisional pending owner confirmation.
+
+## v0.8 – synthetic independent agents
+
+Added isolated vulnerable/hardened agents, fake ledger mutation boundary, multi-turn test and untrusted lookup injection, case-local independent model adapters, and metadata-only JSON report. Offline test evidence and actual Ollama verification are separate. No real transactions.

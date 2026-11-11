@@ -112,3 +112,14 @@ manual assessment using the model outputs in a controlled private session;
 raw model responses are not included in the report.
 
 See [FinanceBot provenance](docs/FINANCEBOT_PROVENANCE.md).
+
+## Independent agent targets (v0.8)
+
+Run `python3 -m security_lab.agent_cli --model gemma3:4b-it-q8_0 --output artifacts/agent-comparison.json` for paired isolated synthetic vulnerable/hardened targets. The tool simulation never changes a real account. See [trust boundary](docs/AGENT_TARGETS.md).
+
+## v0.8.1 response-contract correction
+
+The agent-only Ollama adapter requests JSON mode. An invalid model decision
+results in `INCONCLUSIVE` and CLI exit code 1, never a clean gate. All other
+LLM runners retain their previous transport settings. See
+`docs/AGENT_TARGETS.md`.
