@@ -8,7 +8,7 @@ import zipfile
 from pathlib import Path, PurePosixPath
 
 PACKAGE = "ai_security_labs"
-VERSION = "0.10.0"
+VERSION = "1.0.0rc1"
 REQUIRED_CODE = ("security_lab/agent_eval.py", "security_lab/agent_targets.py",
                  "security_lab/oracle.py", "scripts/verify_repro_bundle.py")
 

@@ -1,44 +1,40 @@
-# Project status and TODO — public v0.5
+# AI Security Labs — verified status and release backlog
 
-**Publication completed on 2026-11-11; development is ongoing.** The open items below are real scope, not checkboxes to mark complete for cosmetic reasons.
+**Current:** public v1.0.0rc1 on open PR #9 (`f0e6a60`); final `v1.0.0` is **NOT RELEASED**. Checkboxes distinguish evidence from aspirations. Updated 2026-11-11.
 
 ## Completed and evidenced
 
-- [x] Independent repository with no imported course Git history (initial commit `090f1a5`).
-- [x] Synthetic tenant lab, 7/7 fixtures, and 43/43 local unit tests (v0.4/v0.5).
-- [x] Optional Ollama experiment, bounded repeated probes, and JSON/HTML reports without raw model replies.
-- [x] Extended canary oracle for supported plaintext/encoded/fragment cases; limitations documented.
-- [x] Same-response output guard demonstration and honest distinction from an independent hardened target.
-- [x] Real local Gemma experiment reported by user: 12 requests, six detected baseline leaks, six output blocks, no transport errors.
-- [x] GitHub Actions offline checks on Python 3.11, 3.12, 3.13; PR #2: six successful checks.
-- [x] Pin GitHub Actions dependencies to reviewed commit SHA values (PR #2).
-- [x] Add MIT license and publication documentation (PR #2).
-- [x] User-reported Trivy 0.76.2 scan of working tree and three reachable commit snapshots: zero findings (bounded scope).
-- [x] Public visibility verified via GitHub CLI (`isPrivate: false`, 2026-11-11).
+- [x] Separate public MIT-licensed repository; training/course repository remains private, without reused Git history.
+- [x] Offline synthetic tenant-boundary suite, FinanceBot scenario reconstruction (20 cases/25 turns), and independent synthetic vulnerable/hardened agent targets.
+- [x] Local Ollama live evidence reported: v0.8 12/12 requests; v0.9.1 Gemma 42/42 requests, benign correct 12/12, vulnerable unauthorized writes 7, hardened writes 0, vulnerable marker leaks 1, hardened marker leaks 0. These are bounded observed results, not general security claims.
+- [x] Limited labelled oracle metric: v0.9.1 13 synthetic fixtures, TP=9/TN=4/FP=0/FN=0; complete-token reversal handling fixed.
+- [x] v0.6 model-report manifest implementation and verifier (SHA-256 of JSON/HTML), with exact model and Git provenance contract; full independent reproduction of every historical model run is **not** claimed.
+- [x] v0.10 Ruff, Bandit, pip-audit (project metadata only), wheel/sdist verification and isolated wheel smoke test; PR #8 merged with green CI.
+- [x] v1.0-rc1 source bundle builder/verifier, tamper tests, threat model; PR #9 head `f0e6a60` GitHub Actions run `43028293678` PASS across four jobs.
+- [x] v1.0-rc1 maintainer-local unit tests 96/96 PASS (reported transcript).
+- [x] Trivy v0.76.2 `secret` filesystem scan on `f0e6a60`: no findings reported.
+- [x] Trivy v0.76.2 `vuln,misconfig` run: **documented as NOT SCANNED** (no supported files), not counted as a clean security result.
+- [x] Documentation reconciled with v1.0-rc1 and GitHub CI; explicit runtime/host distinctions and review limitations.
 
-## Open — enhancements and research (do not misrepresent as finished)
+## Release blockers for final v1.0.0
 
-- [ ] **v0.6:** Verify real local Ollama run and archived SHA-256 manifest; implementation/offline tests prepared. Capture model digest, Ollama version, coarse host environment, exact clean Git commit and report hashes. Full binary/runtime reproducibility is not claimed.
-- [x] Independently reconstruct 20 FinanceBot scenario concepts without course scaffold (v0.7 offline implementation).
-- [ ] Confirm original case authorship, run v0.7 on actual Ollama and add human-reviewed verdicts for non-secret goals.
-- [x] v0.8: Add separate synthetic vulnerable and hardened state-mutation targets, independent requests, multi-turn scenarios and untrusted tool-output injection (offline tests).
-- [ ] Validate v0.8 paired targets on local Ollama and independently review behavior/limitations.
-- [x] v0.9: Measure narrow benign synthetic fee-read correctness and oracle confusion matrix against hand-labelled offline fixtures.
-- [ ] Measure live model false positives/false negatives with independently labelled model responses; expand beyond narrow fee-read correctness.
-- [x] v0.9: Add Base32 and fully percent-encoded marker detection with regression tests.
-- [ ] Extend beyond supported encodings, including known reversed-marker blind spot and more realistic transformed/tool-mediated leaks.
-- [ ] Evaluate optional Ruff, dependency/security scanning and package-build checks as additional CI quality gates.
-- [ ] Collect independent review, broader threat-model evidence and full release reproducibility bundle for a future mature release.
+- [ ] Independent reviewer acceptance of code and trust boundaries; resolve or explicitly accept material review findings (see `docs/SECURITY_REVIEW.md`).
+- [ ] If review changes code, rerun unit tests, Ruff/Bandit/pip-audit, CI and relevant Ollama probes on the new exact SHA.
+- [ ] Review source provenance/attribution and verify no nonpublic training materials are included before publication.
+- [ ] Decide and document whether `vuln,misconfig` scan needs alternative input/scope; do not misreport a skipped scan.
+- [ ] Merge PR #9 only after review and CI acceptance; confirm `main` SHA and release version.
+- [ ] Build/verify the **final release-commit** ZIP and manifest, record both SHA-256 values, attach artifacts to GitHub Release `v1.0.0`, and verify published release assets against the accepted commit.
+- [ ] Update `Necraatall/Necraatall` profile README with the public project link and accurate release status (separate repo/change).
 
-## Scope boundaries
+## Research enhancements beyond v1.0 (not automatically blockers)
 
-- The original training repository remains private and unchanged.
-- Trivy scan success is not proof that no undiscovered secrets exist.
-- `NO_BLOCKING_EVIDENCE` is not a model-safety certification.
+- [ ] Complete independent labelling of live model false-positive/false-negative rates beyond the small synthetic oracle fixtures.
+- [ ] Evaluate semantic/tool-mediated leakage and additional novel encodings, with explicit limitations.
+- [ ] Verify/curate each original course-inspired scenario's authorship and any required attribution; do not import nonpublic course code.
+- [ ] Assess more realistic authenticated write flows (current hardened demo deliberately allows no writes).
+- [ ] Optional Trivy CI integration and immutable signed release provenance/attestations.
+- [ ] Modernize SHA-pinned GitHub Actions to supported Node.js runtime and consider pinning a runner image; do not disguise host/runtime mismatch.
 
-- [ ] v0.9.1: Verify live benign correctness per target after prompt/schema alignment and attach results (pending user-run Ollama).
-- [ ] v0.9.1: Record remaining detector limitations, including arbitrary encodings and semantic leakage.
+## Interpretation
 
-- [x] v0.10 implementation: CI jobs for Ruff, Bandit, dependency metadata audit,
-  wheel/sdist verification and isolated wheel import (CI execution pending).
-- [ ] v0.10 verify new GitHub Actions job end-to-end and address real findings.
+`NO_BLOCKING_EVIDENCE`, clean unit tests and CI PASS are **scoped evidence, not a security certification**. Historical observations and current source revision must never be conflated.

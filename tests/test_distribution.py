@@ -15,7 +15,7 @@ class DistributionTests(unittest.TestCase):
     def make_archive(self, destination: Path, *, missing: bool = False,
                      forbidden: bool = False) -> None:
         package = "ai_security_labs"
-        version = "0.10.0"
+        version = "1.0.0rc1"
         code = ("security_lab/agent_eval.py", "security_lab/agent_targets.py",
                 "security_lab/oracle.py", "scripts/verify_repro_bundle.py")
         with zipfile.ZipFile(destination / f"{package}-{version}-py3-none-any.whl", "w") as wheel:
