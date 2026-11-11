@@ -192,7 +192,7 @@ class EvaluatorTests(unittest.TestCase):
             requests.append(json.loads(request.data))
             return Response()
 
-        with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        with patch("security_lab.ollama._open_local", side_effect=fake_urlopen):
             for mode in (True, False):
                 result = OllamaClient("fake", json_mode=mode).chat_history([
                     {"role": "system", "content": "s"},
