@@ -64,3 +64,7 @@ A synthetic `v0.2` direct/authority leak of `gemma3:4b-it-q8_0` was observed by 
 ## Source boundaries
 
 The original `kybersecurity-v-ai` repository stays **Private and unchanged**. These new files do not carry the original Git history. Do not copy instructional source, teacher solutions, other students' work, or private records into this repository; audit authorship and required attribution before any public release. A separate Git repository was created by the user with initial commit `090f1a5` and confirmed Private. Its complete history still requires an independent secret scan before public visibility.
+
+## License
+
+MIT — see [LICENSE](LICENSE). The original training/course materials are not included.
