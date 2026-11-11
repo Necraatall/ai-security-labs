@@ -36,14 +36,16 @@
 - [x] SR-03 distribution decision documented.
 - [x] SR-04 detection limitations and performance tradeoff accepted.
 
-## Outstanding assurance — not a v1.0 publication blocker
+## Portfolio follow-up — completed
 
-- [ ] Independent security audit and comprehensive source-provenance
-      verification have not been evidenced.
+- [x] Profile README PR #2 merged (`Necraatall/Necraatall`).
+- [x] AI Security Labs displayed as Released v1.0.0.
 
-## Portfolio follow-up
+## Optional future assurance
 
-- [ ] Merge profile README PR #2 (`Necraatall/Necraatall`).
+- Independent external security audit and comprehensive source-provenance
+  verification have not been performed or independently evidenced.
+  These are not v1.0 release requirements.
 
 ## Future research — v1.1+ (not part of v1.0 acceptance)
 
