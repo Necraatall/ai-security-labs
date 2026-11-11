@@ -183,3 +183,12 @@ The project demonstrates bounded security experiments; passing offline tests, sc
 ## Release acceptance — v1.0.0
 
 The published release is accepted only after a distinct reviewer or maintainer records a disposition for the documented limitations in `docs/SECURITY_REVIEW.md`, confirms the included files are authorized for publication, and the exact final commit passes CI. The final source ZIP and detached manifest must be built from **that commit**, verified, hashed and attached to a GitHub Release. A green synthetic oracle is not a model-safety certification; Trivy `vuln,misconfig` reported no eligible inputs rather than a clean result. See [TODO](TODO.md) for the remaining release-only gates.
+
+
+## Stable release
+
+[AI Security Labs v1.0.0](https://github.com/Necraatall/ai-security-labs/releases/tag/v1.0.0)
+
+The public Git tag is the release reference. Additional unsigned source
+ZIP/manifest assets were discontinued after publication and verification.
+See [release decisions](docs/RELEASE_DECISIONS.md).

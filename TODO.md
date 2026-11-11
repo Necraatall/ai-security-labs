@@ -1,6 +1,6 @@
 # AI Security Labs — v1.0 release checklist
 
-**Current state (2026-11-11):** v1.0.0 finalization in progress. PR #9 has been **MERGED** (`e80f5cbbc884ee8aa644344ec6f3b52126a92125`). The final `v1.0.0` GitHub Release is **NOT YET PUBLISHED**. Only evidenced work is checked.
+**Current state (2026-11-11):** v1.0.0 finalization in progress. PR #9 has been **MERGED** (`e80f5cbbc884ee8aa644344ec6f3b52126a92125`). The final `v1.0.0` GitHub Release is **PUBLISHED**. Only evidenced work is checked.
 
 ## Completed and verified — milestones v0.1 through v1.0-rc1
 
@@ -28,8 +28,8 @@
 ## Remaining gates — final GitHub Release v1.0.0
 
 - [ ] **Acceptance/provenance:** independent reviewer or release owner verifies actual final-source trust boundaries, accepts/disposes SR-03/SR-04 limitations, and confirms authorized publication of every included source file. Record who accepted, the exact commit and any known residual risks; never call internal AI review independent.
-- [ ] **Final build CI:** merge version `1.0.0` and synchronization changes, confirm tests, Ruff, Bandit, pip-audit, wheel/sdist and archive verifier PASS on the final commit. When code changes, rerun relevant Ollama probes or clearly mark the missing rerun.
-- [ ] **Published assets:** create and verify the deterministic source ZIP and manifest from the *final tagged commit*, record both SHA-256 values, publish GitHub Release `v1.0.0`, then verify the uploaded assets match the manifest and commit.
+- [x] **Final build CI:** merge version `1.0.0` and synchronization changes, confirm tests, Ruff, Bandit, pip-audit, wheel/sdist and archive verifier PASS on the final commit. When code changes, rerun relevant Ollama probes or clearly mark the missing rerun.
+- [x] **Published assets:** create and verify the deterministic source ZIP and manifest from the *final tagged commit*, record both SHA-256 values, publish GitHub Release `v1.0.0`, then verify the uploaded assets match the manifest and commit.
 
 ## Portfolio follow-up (separate from release acceptance)
 
@@ -46,3 +46,21 @@
 ## Evidence interpretation
 
 A green CI, clean secrets scan, synthetic detector results or `NO_BLOCKING_EVIDENCE` applies only to the declared scope. Unsigned manifests verify integrity relative to supplied hashes, not authenticity. Historical LIVE results are not a test of the final release commit.
+
+
+## v1.0.0 final release evidence
+
+- [x] PR #11 merged into `main`, commit `a76ba4e`.
+- [x] Final package version `1.0.0`.
+- [x] PR #11 CI completed successfully: 4/4 jobs.
+- [x] Local unit tests: 97/97 PASS.
+- [x] GitHub Release `v1.0.0` published.
+- [x] Source ZIP and manifest were created, downloaded and SHA-256 verified.
+- [x] Additional manually uploaded assets were removed from GitHub Release.
+- [x] SR-03 distribution decision documented.
+- [x] SR-04 accepted as a bounded detection/performance tradeoff.
+
+Release: https://github.com/Necraatall/ai-security-labs/releases/tag/v1.0.0
+
+Independent external security audit and comprehensive provenance verification
+are not claimed as complete. See `docs/RELEASE_DECISIONS.md`.
