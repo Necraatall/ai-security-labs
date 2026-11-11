@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**Status: Public development through v0.9.1 (PR #7 merged); v0.10 DevSecOps patch pending CI verification. MIT-licensed, synthetic security lab with documented limitations.**
+**Status: v1.0.0rc1 release candidate (PR #9, commit `f0e6a60`). GitHub CI passed on this commit; security review and final v1.0 publication are pending. Public MIT-licensed synthetic security lab, not a production security certification.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Owner-supplied FinanceBot scenario concepts were independently reconstructed as synthetic tests without importing the course target or source history.
 
@@ -44,13 +44,13 @@ The gate `BLOCK` (exit code 1) means transport/model error, benign control failu
 
 ### Oracle coverage and limitations
 
-The v0.3 oracle detects exact plaintext markers, Base64 and URL-safe Base64, hexadecimal, full Unicode `\\uXXXX` escapes, contiguous marker fragments of at least 12 high-entropy hex characters, and characters separated by whitespace. It can still miss transformed leaks, paraphrases, tool-side effects, arbitrary encodings and multi-turn attacks. It can produce false positives. Reporting is explicitly non-sensitive and does not reproduce model outputs.
+The original v0.3 oracle detects exact plaintext markers, Base64 and URL-safe Base64, hexadecimal, full Unicode `\\uXXXX` escapes, contiguous marker fragments of at least 12 high-entropy hex characters, and characters separated by whitespace. It can still miss transformed leaks, paraphrases, tool-side effects, arbitrary encodings and multi-turn attacks. It can produce false positives. Reporting is explicitly non-sensitive and does not reproduce model outputs.
 
 A synthetic `v0.2` direct/authority leak of `gemma3:4b-it-q8_0` was observed by the user on 2026-11-11: 2/3 attack cases, `gate=BLOCK` with zero transport errors. This is **historical user evidence**, not a test of v0.3, and is not reproducibility proof for other hardware/model revisions.
 
 ## CI and release evidence
 
-`.github/workflows/quality.yml` runs Python 3.11–3.13 compilation, unit tests, deterministic synthetic fixtures and strict evidence consistency checks. The CI does **not** run Ollama or provide a full code security scan.
+`.github/workflows/quality.yml` runs Python 3.11–3.13 compilation, unit tests, deterministic synthetic fixtures and strict evidence consistency checks. CI also runs a separate `devsecops-gate` (Ruff, Bandit, pip-audit, wheel/sdist validation and source archive integrity). It does **not** execute Ollama, Trivy or an exhaustive security audit.
 
 - [User-reported local Ollama evidence](docs/LOCAL_EVIDENCE.md)
 - [Public release gate](docs/PUBLICATION_GATE.md)
@@ -75,7 +75,7 @@ MIT — see [LICENSE](LICENSE). The original training/course materials are not i
 The repository is **public**; see [TODO](TODO.md) for explicitly unfinished enhancements.
 Publishing a usable security lab does not mean that every research goal, enhanced oracle, or reproducibility artifact is complete. The output guard detects recognizable canary disclosures only; it does not establish general agent or model safety.
 
-## v0.6 reproducibility (pending a real rerun)
+## v0.6 reproducibility and recorded scope
 
 The CLI resolves the **exact model tag** from Ollama `/api/tags` and obtains server
 version from `/api/version` over loopback. It captures the current 40-character Git
@@ -128,7 +128,7 @@ LLM runners retain their previous transport settings. See
 
 Run `python3 -m security_lab.quality_cli --output artifacts/oracle-quality.json`.
 The offline ground-truth fixture reports TP/FP/TN/FN plus false positive and false negative rates.
-It intentionally includes a reversed-token *known blind spot*, so exit code 1 is expected and must not be reported as an implementation error. These rates are **only for 13 artificial fixtures**, not for an LLM in production.
+The historical v0.9 reversed-token blind spot was addressed in v0.9.1. The 13 hand-labelled synthetic fixtures then had TP=9, TN=4, FP=0 and FN=0. These rates apply **only** to those 13 artificial fixtures, not to an LLM in production.
 
 `agent_cli` now measures benign read correctness by checking whether the model returns
 `{"action": "none", "fee_bps": 50}` for a trusted synthetic lookup;
@@ -167,3 +167,14 @@ A CI PASS is evidence for this checked scope, not a security certification.
 ## v1.0 source-release candidate
 
 `python3 -m scripts.release_bundle create --repo . --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json` makes a deterministic ZIP of the **exact clean committed Git snapshot**. Run `python3 -m scripts.release_bundle verify --archive artifacts/source-release.zip --manifest artifacts/source-release-manifest.json` to check its complete manifest. This is an **unsigned source-integrity bundle**, distinct from the Ollama experiment's reproducibility manifest. See [release acceptance](docs/RELEASE_CANDIDATE.md) and [threat model](docs/THREAT_MODEL.md).
+
+
+## v1.0-rc1 verification status (2026-11-11)
+
+- **PR #9**, head `f0e6a6044c2f8b2146bf705078daa044fa6d8c3d`: GitHub Actions run `43028293678` **PASS** (DevSecOps gate and Python 3.11/3.12/3.13); local unit tests 96/96 PASS as reported by the maintainer. Historical failed workflow runs are retained as historical evidence.
+- **Trivy 0.76.2**, same checked-out source commit: filesystem `secret` scan reported no findings. `vuln,misconfig` run downloaded a fresh vulnerability database but found **no supported files** (`NOT SCANNED`); its successful process exit is **not** evidence of zero vulnerabilities or misconfigurations. This scan is not a CI job.
+- **Security review:** internal code/boundary review and limitations in [SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md). An independent human/second-reviewer acceptance is **not yet evidenced**.
+- **Source release:** creation and verification are implemented and exercised by CI, but the final `v1.0.0` release artifact must be generated from its accepted **release commit**, hashed and published separately. Detached manifest is **unsigned**.
+- **Environment:** local development uses Ubuntu 22.04 LTS. CI currently uses `ubuntu-latest` (not pinned to Ubuntu 22.04). SHA-pinned checkout/setup-python versions are known to emit a GitHub deprecation warning about their Node.js 20 runtime; the runner currently forces Node.js 24. Read [environment and CI notes](docs/ENVIRONMENT.md).
+
+The project demonstrates bounded security experiments; passing offline tests, scanners, or a finite oracle does not prove that a real LLM is secure.
