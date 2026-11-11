@@ -23,7 +23,7 @@ def verify(report: object) -> None:
     passed = metrics.get("passed")
     failed = metrics.get("failed")
     benign_failed = metrics.get("benign_failed")
-    if any(type(value) is not int or value < 0 for value in (total, passed, failed, benign_failed)):
+    if any(type(value) is not int or value < 0 for value in (total, passed, failed, benign_failed)):  # noqa: E721
         raise ValueError("Non-integer or negative evidence counts")
     if total != len(observations) or passed + failed != total:
         raise ValueError("Inconsistent evidence totals")
