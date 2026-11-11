@@ -1,12 +1,23 @@
 # Release log
 
-## v0.4 — Portfolio release preparation (local only)
+## v0.5 — Public portfolio baseline (2026-11-11)
+
+- Added MIT license and SHA-pinned GitHub Actions in merged PR #2 (`d6488c3`).
+- User reported six successful GitHub Actions checks on Python 3.11–3.13.
+- User reported clean Trivy secret scans for working tree and all three reachable commits at review time.
+- GitHub CLI confirmed `isPrivate: false`.
+- v0.5.1 documentation-only follow-up aligns README, TODO and release evidence with actual status.
+- Remaining research and repeatability work stays explicitly open.
+
+# Release log
+
+## v0.4 — Portfolio release preparation (historical)
 
 - Added offline GitHub Actions Python matrix (3.11, 3.12, 3.13).
 - Added strict structural validation of synthetic fixture evidence plus negative tests.
 - Recorded the user-reported v0.3 Ollama run with precise limitations.
 - Added a publication gate explicitly marking remote CI, Git history scan, action SHA pinning and licensing as pending.
-- **No remote CI run and no additional live Ollama test claimed.**
+- **At v0.4 creation remote CI had not run. It subsequently passed in GitHub PR #1.**
 
 
 ## v0.3 — Extended leak oracle and paired output-filter comparison
@@ -28,7 +39,7 @@
 
 - 11/11 unit tests and 7/7 fixture checks passed in the user's environment.
 
-## Next release candidates
+## Historical roadmap (superseded by current TODO.md)
 
 - v0.4: provenance-reviewed original user-created scenarios, isolated target adapters, benign-task assertions and broader oracles.
 - v0.5: real hardening demonstrations with independent before/after model requests, CI/CD and reproducibility evidence.

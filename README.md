@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**v0.4 – PRIVATE portfolio candidate, NOT ready for publication.**
+**Status: Public portfolio release v0.5 (2026-11-11). MIT-licensed; functional security lab with documented limitations.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Original student attack files have **not yet been integrated** because provenance and dependencies must be reviewed first.
 
@@ -63,8 +63,13 @@ A synthetic `v0.2` direct/authority leak of `gemma3:4b-it-q8_0` was observed by 
 
 ## Source boundaries
 
-The original `kybersecurity-v-ai` repository stays **Private and unchanged**. These new files do not carry the original Git history. Do not copy instructional source, teacher solutions, other students' work, or private records into this repository; audit authorship and required attribution before any public release. A separate Git repository was created by the user with initial commit `090f1a5` and confirmed Private. Its complete history still requires an independent secret scan before public visibility.
+The original `kybersecurity-v-ai` repository stays **Private and unchanged**. These new files do not carry the original Git history. Do not copy instructional source, teacher solutions, other students' work, or private records into this repository; audit authorship and required attribution before incorporating any third-party material. A separate Git repository was created by the user with initial commit `090f1a5` and subsequently confirmed Public on 2026-11-11. The user reported that Trivy 0.76.2 found no secrets in the current tree or exports of all three reachable commits at the time of review. This is a bounded scan, not a guarantee of no secrets.
 
 ## License
 
 MIT — see [LICENSE](LICENSE). The original training/course materials are not included.
+
+## Current state and roadmap
+
+The repository is **public**; see [TODO](TODO.md) for explicitly unfinished enhancements.
+Publishing a usable security lab does not mean that every research goal, enhanced oracle, or reproducibility artifact is complete. The output guard detects recognizable canary disclosures only; it does not establish general agent or model safety.
