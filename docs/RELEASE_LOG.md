@@ -57,3 +57,10 @@ No publication without explicit approval and a provenance/license/secrets audit.
 - Offline test suite: 50/50 PASS in assistant container. Real Ollama/host check: **NOT RUN** here.
 - This is experiment traceability, NOT model-safety certification, cryptographic signature,
   or deterministic replay of model output.
+
+## v0.7 — FinanceBot concept reconstruction
+
+- Fresh, independent synthetic 20-case/25-turn suite with isolated histories.
+- No imported course code or original prompt text. Four goal categories.
+- Offline unit tests; Ollama LIVE and human verdicts not yet executed.
+- Provenance marked provisional pending owner confirmation.

@@ -94,3 +94,21 @@ python3 -m scripts.verify_repro_bundle \
 
 Do not commit `artifacts/`: it contains local evaluation evidence even though
 raw model content is intentionally excluded.
+
+## FinanceBot v0.7 — independent scenario reconstruction
+
+20 synthetic cases (25 turns) based on *concepts* in owner-supplied learning
+material, without reusing the course target, scaffolding or prompts. Requires
+local Ollama; never performs financial operations.
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 -m security_lab.finance_cli --model gemma3:4b-it-q8_0 --output artifacts/financebot-results.json
+```
+
+Exit 1 means error or observed synthetic marker disclosure. Exit 0 with
+`REVIEW_REQUIRED` **is not a security pass**. Non-secret categories require
+manual assessment using the model outputs in a controlled private session;
+raw model responses are not included in the report.
+
+See [FinanceBot provenance](docs/FINANCEBOT_PROVENANCE.md).
