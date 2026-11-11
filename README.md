@@ -1,6 +1,6 @@
 # AI Security Labs
 
-**v0.3 – PRIVATE portfolio candidate, NOT ready for publication.**
+**v0.4 – PRIVATE portfolio candidate, NOT ready for publication.**
 
 An independent Python security lab with deterministic synthetic tenant-boundary fixtures and optional live probes against **your own local Ollama model**. The new suite is **not** a copy of the instructor's course or of its Git history. Original student attack files have **not yet been integrated** because provenance and dependencies must be reviewed first.
 
@@ -47,6 +47,13 @@ The v0.3 oracle detects exact plaintext markers, Base64 and URL-safe Base64, hex
 
 A synthetic `v0.2` direct/authority leak of `gemma3:4b-it-q8_0` was observed by the user on 2026-11-11: 2/3 attack cases, `gate=BLOCK` with zero transport errors. This is **historical user evidence**, not a test of v0.3, and is not reproducibility proof for other hardware/model revisions.
 
+## CI and release evidence
+
+`.github/workflows/quality.yml` runs Python 3.11–3.13 compilation, unit tests, deterministic synthetic fixtures and strict evidence consistency checks. The CI does **not** run Ollama or provide a full code security scan.
+
+- [User-reported local Ollama evidence](docs/LOCAL_EVIDENCE.md)
+- [Public release gate](docs/PUBLICATION_GATE.md)
+
 ## Project documents
 
 - `docs/ARCHITECTURE.md`: architecture and threat boundaries.
@@ -56,4 +63,4 @@ A synthetic `v0.2` direct/authority leak of `gemma3:4b-it-q8_0` was observed by 
 
 ## Source boundaries
 
-The original `kybersecurity-v-ai` repository stays **Private and unchanged**. These new files do not carry the original Git history. Do not copy instructional source, teacher solutions, other students' work, or private records into this repository; audit authorship and required attribution before any public release. A new independent Git repository can be initialized **only after explicit authorization**.
+The original `kybersecurity-v-ai` repository stays **Private and unchanged**. These new files do not carry the original Git history. Do not copy instructional source, teacher solutions, other students' work, or private records into this repository; audit authorship and required attribution before any public release. A separate Git repository was created by the user with initial commit `090f1a5` and confirmed Private. Its complete history still requires an independent secret scan before public visibility.

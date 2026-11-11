@@ -1,5 +1,14 @@
 # Release log
 
+## v0.4 — Portfolio release preparation (local only)
+
+- Added offline GitHub Actions Python matrix (3.11, 3.12, 3.13).
+- Added strict structural validation of synthetic fixture evidence plus negative tests.
+- Recorded the user-reported v0.3 Ollama run with precise limitations.
+- Added a publication gate explicitly marking remote CI, Git history scan, action SHA pinning and licensing as pending.
+- **No remote CI run and no additional live Ollama test claimed.**
+
+
 ## v0.3 — Extended leak oracle and paired output-filter comparison
 
 - Added exact plaintext, Base64/base64url, hex, Unicode escape, long random hex fragment and whitespace-separated canary detection.
