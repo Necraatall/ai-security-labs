@@ -1,9 +1,7 @@
 """Offline tests of live-run logic with controlled fake models."""
 
 import base64
-import tempfile
 import unittest
-from pathlib import Path
 from unittest.mock import patch
 from urllib.error import URLError, HTTPError
 from urllib.request import Request
@@ -99,7 +97,6 @@ class TestLive(unittest.TestCase):
                 OllamaClient("test").chat("system", "user")
 
     def test_ollama_parses_valid_response(self):
-        from io import BytesIO
         with patch("security_lab.ollama._open_local") as mocked:
             mocked.return_value.__enter__.return_value.read.return_value = (
                 b'{"message":{"content":"Hello"}}'
