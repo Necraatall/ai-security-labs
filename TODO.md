@@ -56,4 +56,3 @@
 ## Evidence interpretation
 
 A green CI, clean secrets scan, synthetic detector results or `NO_BLOCKING_EVIDENCE` applies only to the declared scope. Unsigned manifests verify integrity relative to supplied hashes, not authenticity. Historical LIVE results are not a test of the final release commit.
-
